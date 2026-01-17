@@ -18,35 +18,33 @@ import { useNavigate } from 'react-router-dom';
 export default function Index() {
   const navigate = useNavigate();
 
-  const activeStudents = mockStudents.filter((s) => s.status === 'active');
-  const unpaidInvoices = mockInvoices.filter((inv) => inv.status === 'unpaid');
-  const totalPending = unpaidInvoices.reduce((sum, inv) => sum + inv.amount, 0);
+const { stats, loading } = useDashboardStats();
 
   const stats = [
     {
       label: 'Active Students',
-      value: activeStudents.length,
+      value: stats.activeStudents,
       icon: Users,
       color: 'text-primary',
       bgColor: 'bg-primary/10',
     },
     {
       label: 'Total Batches',
-      value: mockBatches.length,
+      value: stats.totalBatches,
       icon: Calendar,
       color: 'text-accent',
       bgColor: 'bg-accent/10',
     },
     {
       label: 'Unpaid Invoices',
-      value: unpaidInvoices.length,
+      value: stats.unpaidInvoices,
       icon: Receipt,
       color: 'text-warning',
       bgColor: 'bg-warning/10',
     },
     {
       label: 'Pending Amount',
-      value: `₹${totalPending.toLocaleString('en-IN')}`,
+      value: `₹${stats.pendingAmount.toLocaleString("en-IN")}`,  
       icon: TrendingUp,
       color: 'text-destructive',
       bgColor: 'bg-destructive/10',
@@ -91,6 +89,9 @@ export default function Index() {
   ];
 
   return (
+    if (loading) {
+  return <DashboardLayout>Loading dashboard…</DashboardLayout>;
+}
     <DashboardLayout>
       <div className="space-y-6">
         {/* Welcome Header */}
