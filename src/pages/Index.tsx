@@ -14,9 +14,31 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useDashboardStats } from "@/hooks/useDashboardStats";
 import { useNavigate } from 'react-router-dom';
+import { supabase } from "@/lib/supabase";
+import { useState } from "react";
 
 export default function Index() {
   const navigate = useNavigate();
+  const [sending, setSending] = useState(false);
+
+const sendReminders = async () => {
+  try {
+    setSending(true);
+
+    const { data, error } = await supabase.functions.invoke(
+      "send-payment-reminders"
+    );
+
+    if (error) throw error;
+
+    alert(`Reminders sent successfully!\nEmails sent: ${data.emails_sent}`);
+  } catch (err) {
+    console.error(err);
+    alert("Failed to send reminders. Check console.");
+  } finally {
+    setSending(false);
+  }
+};
 
 const { stats, loading } = useDashboardStats();
   if (loading) {
@@ -119,13 +141,9 @@ const { stats, loading } = useDashboardStats();
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Button
-              onClick={() => navigate('/students')}
-              className="gap-2"
-            >
-              <AlertCircle className="w-4 h-4" />
-              Send Fee Reminders
-            </Button>
+            <Button onClick={sendReminders} disabled={sending}>
+  {sending ? "Sending..." : "Send Fee Reminders"}
+</Button>
           </motion.div>
         </div>
 
