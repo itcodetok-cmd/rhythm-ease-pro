@@ -1,3 +1,25 @@
+import { useEffect } from "react";
+import { supabase } from "./lib/supabase";
+
+function App() {
+  useEffect(() => {
+    const testConnection = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("❌ Supabase connection error:", error.message);
+      } else {
+        console.log("✅ Supabase connected successfully", data);
+      }
+    };
+
+    testConnection();
+  }, []);
+
+  return <h1>Supabase Connection Test</h1>;
+}
+
+export default App;
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
