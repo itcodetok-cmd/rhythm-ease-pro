@@ -12,7 +12,6 @@ import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { mockStudents, mockBatches, mockInvoices } from '@/data/mockData';
 import { useNavigate } from 'react-router-dom';
 
 export default function Index() {
