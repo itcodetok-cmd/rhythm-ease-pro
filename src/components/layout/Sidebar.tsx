@@ -20,7 +20,6 @@ const navItems = [
   { icon: Users, label: 'Students', path: '/students' },
   { icon: Calendar, label: 'Schedule', path: '/schedule' },
   { icon: Receipt, label: 'Invoices', path: '/invoices' },
-  { icon: Send, label: 'Reminders', path: '/reminders' },
   { icon: Settings, label: 'Settings', path: '/settings' },
 ];
 
