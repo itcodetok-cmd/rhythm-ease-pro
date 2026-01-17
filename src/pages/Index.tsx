@@ -19,8 +19,11 @@ export default function Index() {
   const navigate = useNavigate();
 
 const { stats, loading } = useDashboardStats();
+  if (loading) {
+  return <DashboardLayout>Loading dashboard…</DashboardLayout>;
+}
 
-  const stats = [
+  const statCards = [
     {
       label: 'Active Students',
       value: stats.activeStudents,
@@ -89,10 +92,7 @@ const { stats, loading } = useDashboardStats();
   ];
 
   return (
-    if (loading) {
-  return <DashboardLayout>Loading dashboard…</DashboardLayout>;
-}
-    <DashboardLayout>
+      <DashboardLayout>
       <div className="space-y-6">
         {/* Welcome Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -136,7 +136,7 @@ const { stats, loading } = useDashboardStats();
           transition={{ delay: 0.15 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
         >
-          {stats.map((stat, index) => (
+          {statCards.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
